@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Viviendo con Diabetes — Recurso Educativo Digital</title>
+  <meta name="description" content="Recurso educativo digital accesible e interactivo sobre prevención, manejo y autocuidado de la diabetes.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💙</text></svg>">
+  <style>
+    /* ====== Base (Mobile-first, alto contraste, accesible) ====== */
+    :root{
+      --bg:#0b1020;
+      --card:#121831;
+      --muted:#aab6ff;
+      --txt:#f2f4ff;
+      --accent:#6ee7b7; /* verde menta */
+      --accent-2:#93c5fd; /* azul claro */
+      --danger:#fca5a5;
+      --focus:#fde68a;
+      --shadow: 0 10px 20px rgba(0,0,0,.3);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
+      color:var(--txt); background: radial-gradient(1200px 800px at 20% -10%, #1b2350 0%, #0b1020 55%);
+      line-height:1.6; letter-spacing:.2px;
+    }
+    a{color:var(--accent-2); text-decoration:underline}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    .skip-link{position:absolute; left:-999px; top:auto; width:1px; height:1px; overflow:hidden}
+    .skip-link:focus{left:16px; top:16px; width:auto; height:auto; background:var(--focus); color:#111; padding:8px 12px; border-radius:8px; z-index:1000}
+    header.site{
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(6px);
+      background:linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.65));
+      border-bottom:1px solid rgba(255,255,255,.08)
+    }
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.5px}
+    .brand .logo{width:36px; height:36px; border-radius:10px; display:grid; place-items:center; box-shadow:var(--shadow);
+      background: linear-gradient(135deg, #5eead4, #93c5fd);
+      color:#0b1020; font-size:20px; font-weight:900;
+    }
+    nav ul{display:flex; gap:14px; list-style:none; padding:0; margin:0; flex-wrap:wrap}
+    nav a{display:block; padding:10px 12px; border-radius:10px; text-decoration:none; color:var(--txt); opacity:.9}
+    nav a:hover, nav a:focus{background:rgba(255,255,255,.06); outline: none}
+    .hero{
+      display:grid; gap:18px; padding:40px 0 18px;
+      grid-template-columns:1fr;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:22px; box-shadow: var(--shadow)
+    }
+    .hero h1{font-size:clamp(28px, 4vw, 44px); margin:0 0 6px; line-height:1.15}
+    .muted{color:var(--muted)}
+    .grid{display:grid; gap:18px}
+    .grid.cols-2{grid-template-columns:1fr}
+    .grid.cols-3{grid-template-columns:1fr}
+    @media (min-width:780px){
+      .hero{grid-template-columns: 1.3fr .7fr}
+      .grid.cols-2{grid-template-columns:1fr 1fr}
+      .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:18px; box-shadow: var(--shadow)
+    }
+    h2{margin:0 0 8px; font-size: clamp(22px, 3vw, 28px)}
+    h3{margin:10px 0 6px; font-size: clamp(18px, 2.4vw, 22px)}
+    section{scroll-margin-top:84px}
+    ul.check{list-style:none; padding:0; margin:0}
+    ul.check li{padding-left:28px; position:relative; margin:8px 0}
+    ul.check li::before{
+      content:"✓"; position:absolute; left:0; top:0; width:22px; height:22px; display:grid; place-items:center;
+      color:#0b1020; background:var(--accent); border-radius:8px; font-weight:900; transform: translateY(2px);
+    }
+    .kbd{background:#0b1020; padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.25)}
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; font-weight:600; background:rgba(110,231,183,.15); border:1px solid rgba(110,231,183,.45)}
+    .btn{
+      display:inline-flex; gap:8px; align-items:center; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); color:var(--txt); text-decoration:none;
+    }
+    .btn:hover{filter:brightness(1.1)}
+    .btn.primary{background: linear-gradient(180deg, rgba(110,231,183,.7), rgba(110,231,183,.35)); color:#0b1020; border-color: rgba(110,231,183,.8); font-weight:800}
+    .field{display:grid; gap:6px; margin:10px 0}
+    .field input, .field textarea, .field select{
+      width:100%; padding:12px 12px; background:#0b1020; color:var(--txt); border-radius:10px; border:1px solid rgba(255,255,255,.2)
+    }
+    .field input::placeholder, .field textarea::placeholder{color:#9aa3d3}
+    .hint{font-size:.9rem; color:var(--muted)}
+    .error{color:var(--danger); font-weight:700}
+    .ok{color:var(--accent)}
+    .footer{opacity:.8; font-size:.95rem; border-top:1px solid rgba(255,255,255,.08); margin-top:24px; padding-top:16px}
+    code.inline{background:#10163a; padding:2px 6px; border-radius:6px; border:1px solid rgba(255,255,255,.15)}
+    /* Tables */
+    table{width:100%; border-collapse: collapse; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.02)}
+    th, td{padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.08); text-align:left}
+    th{background: rgba(255,255,255,.06)}
+    /* Toast */
+    .toast{position:fixed; right:16px; bottom:16px; background:#10163a; border:1px solid rgba(255,255,255,.2); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow); display:none}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+  
+    /* Tipos de diabetes - estilos diferenciados */
+    tr.type1 td { background: rgba(147,197,253,0.14); border-left: 6px solid #93c5fd; }   /* azul claro */
+    tr.type2 td { background: rgba(110,231,183,0.14); border-left: 6px solid #6ee7b7; }   /* verde menta */
+    tr.typeG td { background: rgba(252,165,165,0.14); border-left: 6px solid #fca5a5; }   /* rojo suave */
+
+
+    /* Ilustraciones centradas y responsivas */
+    figure.ilustracion{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      margin:16px auto;
+      width:100%;
+      max-width:380px;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 8px 18px rgba(0,0,0,.3);
+    }
+    figure.ilustracion svg{width:100%; height:auto; display:block}
+    figure.ilustracion figcaption{
+      padding:8px 12px; text-align:center;
+      background:rgba(255,255,255,.08); color:#e5e7eb; font-size:.9rem
+    }
+
+
+    .badge{display:inline-block; padding:3px 8px; border-radius:999px; font-weight:700; font-size:.85rem}
+    .badge.ok{background:rgba(110,231,183,.2); border:1px solid rgba(110,231,183,.6); color:#d1fae5}
+    .badge.error{background:rgba(252,165,165,.2); border:1px solid rgba(252,165,165,.6); color:#fee2e2}
+
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido principal</a>
+  <header class="site">
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px">
+      <div class="brand" aria-label="Marca del sitio">
+        <div class="logo" aria-hidden="true">D</div>
+        <span>Viviendo con Diabetes</span>
+        <span class="pill" title="Prototipo TRL5">TRL5</span>
+      </div>
+      <nav aria-label="Secciones principales">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#diabetes">¿Qué es?</a></li>
+          <li><a href="#prevencion">Prevención</a></li>
+          <li><a href="#alimentacion">Alimentación</a></li>
+          <li><a href="#actividad">Actividad física</a></li>
+          <li><a href="#autocuidado">Autocuidado</a></li>
+          <li><a href="#evaluacion">Evaluación</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido" class="container">
+    <!-- HERO -->
+    <section id="inicio" class="hero" aria-labelledby="t-inicio">
+      <div class="hero-card">
+        <h1 id="t-inicio">Información clara para decisiones saludables</h1>
+        <p class="muted">Un recurso educativo digital para comprender la diabetes y fortalecer el autocuidado. Diseño centrado en el usuario, lenguaje claro y accesible, pruebas con usuarios (grupo piloto), y métricas de interacción.</p>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+          <a class="btn primary" href="#evaluacion">Hacer Pre-Test</a>
+          <a class="btn" href="#diabetes">Explorar contenidos</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-label="Datos rápidos">
+        <h3>¿Qué encontrarás aquí?</h3>
+        <ul class="check">
+          <li>Explicaciones simples y confiables.</li>
+          <li>Guías de hábitos de vida saludables.</li>
+          <li>Consejos prácticos de alimentación y actividad física.</li>
+          <li>Evaluación de aprendizaje (pre/post).</li>
+        </ul>
+        <p class="hint">*Este sitio no reemplaza la consulta médica. Ante dudas, consulta a tu profesional de salud.</p>
+      </div>
+    </section>
+
+    <!-- CONTENIDO EDUCATIVO -->
+    <section id="diabetes" class="grid cols-2" aria-labelledby="t-diabetes">
+      <div class="card">
+        <h2 id="t-diabetes">¿Qué es la diabetes?</h2>
+        <p>La <strong>diabetes mellitus</strong> es una enfermedad crónica en la que el organismo no produce insulina suficiente o no la usa eficazmente. La insulina regula la glucosa en sangre. Niveles altos sostenidos pueden causar complicaciones.</p>
+        <table aria-label="Tipos comunes de diabetes">
+          <thead><tr><th>Tipo</th><th>Descripción breve</th></tr></thead>
+          <tbody>
+            
+            <tr class="type1"><td><strong>Tipo 1</strong></td><td>El sistema inmunitario destruye las células del páncreas que producen insulina. Suele aparecer en la infancia o juventud y <em>siempre</em> requiere insulina. Los síntomas suelen iniciar de forma rápida.</td></tr>
+            <tr class="type2"><td><strong>Tipo 2</strong></td><td>El cuerpo no usa bien la insulina (resistencia) y con el tiempo produce menos. Es la forma más común en adultos y se relaciona con sedentarismo, alimentación y factores genéticos. Puede manejarse con cambios de estilo de vida, fármacos orales y, en algunos casos, insulina.</td></tr>
+            <tr class="typeG"><td><strong>Gestacional</strong></td><td>Aparece durante el embarazo por cambios hormonales que aumentan la resistencia a la insulina. Requiere control estricto para proteger a la madre y al bebé. Suele resolverse tras el parto, pero aumenta el riesgo futuro de diabetes tipo 2.</td></tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Señales de alerta</h3>
+        <ul class="check">
+          <li>Sed y hambre intensas</li>
+          <li>Micción frecuente</li>
+          <li>Visión borrosa</li>
+          <li>Pérdida de peso inexplicada</li>
+          <li>Cansancio extremo</li>
+        </ul>
+        <p class="hint">Acude a tu médico si presentas estas señales. La detección temprana evita complicaciones.</p>
+      </div>
+    </section>
+
+    <section id="prevencion" class="grid cols-3" aria-labelledby="t-prevencion">
+      <article class="card">
+        <h2 id="t-prevencion">Prevención</h2>
+        <p>Pequeños cambios sostenidos tienen gran impacto. Empieza con metas realistas y medibles.</p>
+        <ul class="check">
+          <li>Control del peso corporal.</li>
+          <li>Actividad física regular.</li>
+          <li>Alimentación balanceada, baja en azúcares añadidos.</li>
+          <li>Abandono de tabaco y reducción de alcohol.</li>
+        </ul>
+        
+<figure class="ilustracion" aria-label="Ilustración de actividad física" role="img" style="width:100%;border-radius:12px;margin-top:10px;background:linear-gradient(135deg,#1e3a8a,#3b82f6);box-shadow:0 10px 20px rgba(0,0,0,.25);padding:0">
+  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="200" aria-hidden="true">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#34d399"/>
+      </linearGradient>
+    </defs>
+    <!-- pista -->
+    <path d="M0,170 C80,150 160,190 240,170 C300,155 350,180 400,170" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="6" />
+    <!-- sol -->
+    <circle cx="340" cy="40" r="22" fill="#fde68a"/>
+    <!-- figura corriendo (estilo simple) -->
+    <circle cx="120" cy="60" r="12" fill="#fff"/>
+    <line x1="120" y1="72" x2="120" y2="110" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="88" x2="95" y2="105" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="88" x2="145" y2="100" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="110" x2="100" y2="140" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <line x1="120" y1="110" x2="145" y2="135" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    <!-- decoración -->
+    <path d="M10 30 h60" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M30 50 h40" stroke="url(#g1)" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <figcaption style="padding:8px 10px;color:#e5e7eb;font-size:.9rem;background:rgba(255,255,255,.08);border-bottom-left-radius:12px;border-bottom-right-radius:12px">
+    Actividad física regular: caminar, trotar, bailar o subir escaleras.
+  </figcaption>
+</figure>
+
+
+      </article>
+      <article class="card">
+        
+        <h2 id="t-prevencion">Objetivos SMART</h2>
+        <p>Adoptar hábitos saludables requiere metas claras y realistas. Los objetivos <strong>SMART</strong> ayudan a estructurar el cambio de manera gradual, sostenible y motivadora.
+        Cada meta debe ser <strong>Específica</strong>, <strong>Medible</strong>, <strong>Alcanzable</strong>, <strong>Relevante</strong> y con un <strong>Tiempo definido</strong>.</p>
+        <p><em>Ejemplo de aplicación:</em></p>
+        <blockquote>“Realizar caminatas de 30 minutos, cinco veces por semana, durante los próximos dos meses, con el propósito de mejorar el control glucémico y fortalecer la salud cardiovascular.”</blockquote>
+        <p>Este tipo de metas permite:</p>
+        <ul class="check">
+          <li>Monitorear los avances y celebrar logros pequeños.</li>
+          <li>Evitar la frustración por expectativas poco realistas.</li>
+          <li>Fortalecer la adherencia al tratamiento y al autocuidado.</li>
+          <li>Motivar cambios sostenibles en el estilo de vida.</li>
+        </ul>
+        <p>El uso del enfoque <strong>SMART</strong> no solo orienta la planificación individual, sino que también favorece el acompañamiento médico y educativo, asegurando que cada acción tenga un propósito claro y resultados evaluables.</p>
+</article>
+      <article class="card">
+        <h3>Monitoreo básico</h3>
+        <p>Anota en una libreta o app: horas de comida, actividad física, glucemias (si aplica) y medicación. Lleva estos datos a tus consultas.</p>
+        
+<figure class="ilustracion" aria-label="Ilustración de monitoreo de glucosa" role="img" style="width:100%;border-radius:12px;margin-top:10px;background:linear-gradient(135deg,#0f172a,#1f2937);box-shadow:0 10px 20px rgba(0,0,0,.25);padding:0">
+  <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" width="100%" height="200" aria-hidden="true">
+    <defs>
+      <linearGradient id="g2" x1="0" x2="1">
+        <stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#60a5fa"/>
+      </linearGradient>
+    </defs>
+    <!-- glucometro cuerpo -->
+    <rect x="120" y="35" width="160" height="130" rx="18" fill="url(#g2)" opacity=".95"/>
+    <rect x="135" y="50" width="130" height="50" rx="8" fill="#111827" opacity=".9"/>
+    <text x="200" y="82" fill="#e5e7eb" font-size="22" text-anchor="middle" font-family="monospace">108 mg/dL</text>
+    <!-- botón -->
+    <circle cx="200" cy="120" r="10" fill="#fde68a"/>
+    <!-- tira reactiva -->
+    <rect x="195" y="165" width="10" height="25" fill="#d1d5db"/>
+    <path d="M200 155 v10" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+    <!-- registro (cuaderno) -->
+    <rect x="20" y="35" width="80" height="130" rx="6" fill="#e5e7eb" opacity=".85"/>
+    <path d="M30 60 h60 M30 80 h60 M30 100 h60 M30 120 h60 M30 140 h60" stroke="#9ca3af" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+  <figcaption style="padding:8px 10px;color:#e5e7eb;font-size:.9rem;background:rgba(255,255,255,.08);border-bottom-left-radius:12px;border-bottom-right-radius:12px">
+    Monitoreo básico: registra horarios, comidas, actividad y glucemias.
+  </figcaption>
+</figure>
+
+
+      </article>
+    </section>
+
+    <section id="alimentacion" class="grid cols-2" aria-labelledby="t-alimentacion">
+      <div class="card">
+        <h2 id="t-alimentacion">Alimentación saludable</h2>
+        <p>Prioriza alimentos frescos y completos. Limita ultraprocesados, bebidas azucaradas y porciones excesivas.</p>
+        <ul class="check">
+          <li>Mitad del plato: verduras de muchos colores.</li>
+          <li>Un cuarto: proteínas magras (pescado, pollo, leguminosas).</li>
+          <li>Un cuarto: carbohidratos de buena calidad (integrales).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Lectura de etiquetas</h3>
+        <p>Revisa por porción: <strong>azúcares añadidos</strong>, <strong>fibra</strong>, <strong>grasas saturadas</strong> y <strong>calorías</strong>. Elige opciones con más fibra y menos azúcar.</p>
+      </div>
+    </section>
+
+    <section id="actividad" class="grid cols-2" aria-labelledby="t-actividad">
+      <div class="card">
+        <h2 id="t-actividad">Actividad física</h2>
+        <ul class="check">
+          <li>150 min/semana de actividad moderada o 75 min vigorosa.</li>
+          <li>Entrenamiento de fuerza 2–3 veces/semana.</li>
+          <li>Rompe el sedentarismo: levántate cada 45–60 min.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Ideas simples</h3>
+        <p>Caminar con amigos, subir escaleras, bailar en casa, rutinas cortas con tu propio peso corporal.</p>
+      </div>
+    </section>
+
+    <section id="autocuidado" class="grid cols-2" aria-labelledby="t-autocuidado">
+      <div class="card">
+        <h2 id="t-autocuidado">Autocuidado y adherencia</h2>
+        <ul class="check">
+          <li>Conoce tu tratamiento y horarios.</li>
+          <li>Plan ante olvidos: contacta a tu profesional.</li>
+          <li>Cuidado de pies: revisa diariamente.</li>
+          <li>Salud mental: gestiona el estrés y busca apoyo.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Señales de alarma</h3>
+        <p class="hint">Hipoglucemia (azúcar baja): sudor frío, temblores, confusión. Hiper: sed intensa, visión borrosa, cansancio.</p>
+        <p>Ante emergencia, busca ayuda profesional.</p>
+      </div>
+    </section>
+
+    <!-- EVALUACIÓN (Pre/Post) -->
+    <section id="evaluacion" class="card" aria-labelledby="t-eval">
+      <h2 id="t-eval">Evaluación de aprendizaje</h2>
+      <p class="muted">Realiza el <strong>Pre-Test</strong> antes de explorar el contenido y el <strong>Post-Test</strong> cuando termines. Tus resultados se guardan <em>localmente</em> en tu navegador (no se envían a un servidor).</p>
+
+      <div class="grid cols-2" role="tablist" aria-label="Pestañas de evaluación">
+        <button class="btn" role="tab" aria-selected="true" aria-controls="panel-pre" id="tab-pre">Pre-Test</button>
+        <button class="btn" role="tab" aria-selected="false" aria-controls="panel-post" id="tab-post">Post-Test</button>
+      </div>
+
+      <div id="panel-pre" role="tabpanel" aria-labelledby="tab-pre" style="margin-top:12px">
+        <form id="form-pre" novalidate>
+          <div class="field">
+            <label for="p1">1) La diabetes tipo 2 siempre requiere insulina desde el diagnóstico.</label>
+            <select id="p1" required>
+              <option value="">Selecciona…</option>
+              <option value="F">Falso</option>
+              <option value="V">Verdadero</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="p2">2) Elegir cereales integrales ayuda al control glucémico.</label>
+            <select id="p2" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="p3">3) 150 minutos/semana de actividad moderada es una meta razonable.</label>
+            <select id="p3" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label for="p4">4) Saltarse comidas ayuda a controlar el azúcar.</label>
+            <select id="p4" required>
+              <option value="">Selecciona…</option>
+              <option value="F">Falso</option>
+              <option value="V">Verdadero</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="p5">5) Tomar agua y mantener peso saludable reduce el riesgo.</label>
+            <select id="p5" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+<button class="btn primary" type="submit">Guardar Pre-Test</button>
+          <span id="pre-msg" class="hint" aria-live="polite"></span>
+        </form>
+          <div style="margin-top:10px">
+            <button id="btn-ver-pre" class="btn" type="button" hidden>Ver resultados del Pre-Test</button>
+          </div>
+          <section id="resultados-pre" class="card" hidden style="margin-top:10px">
+            <h3>Resultados del Pre-Test</h3>
+            <div id="tabla-pre-solo"></div>
+          </section>
+
+      </div>
+
+      <div id="panel-post" role="tabpanel" aria-labelledby="tab-post" hidden style="margin-top:12px">
+        <form id="form-post" novalidate>
+          <div class="field">
+            <label for="q1">1) Las bebidas azucaradas deben evitarse o limitarse.</label>
+            <select id="q1" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="q2">2) Es recomendable revisar los pies diariamente.</label>
+            <select id="q2" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="q3">3) Si olvidas una dosis, lo correcto es duplicar la siguiente.</label>
+            <select id="q3" required>
+              <option value="">Selecciona…</option>
+              <option value="F">Falso</option>
+              <option value="V">Verdadero</option>
+            </select>
+          </div>
+          
+          <div class="field">
+            <label for="q4">4) Dormir bien y manejar el estrés ayuda al control glucémico.</label>
+            <select id="q4" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="q5">5) Controlar la presión arterial es importante en personas con diabetes.</label>
+            <select id="q5" required>
+              <option value="">Selecciona…</option>
+              <option value="V">Verdadero</option>
+              <option value="F">Falso</option>
+            </select>
+          </div>
+<button class="btn primary" type="submit">Guardar Post-Test</button>
+          <span id="post-msg" class="hint" aria-live="polite"></span>
+        </form>
+          <div style="margin-top:10px">
+            <button id="btn-ver-post" class="btn" type="button" hidden>Ver resultados del Post-Test</button>
+          </div>
+          <section id="resultados-post" class="card" hidden style="margin-top:10px">
+            <h3>Resultados del Post-Test</h3>
+            <div id="tabla-post-solo"></div>
+          </section>
+
+
+        <div id="resumen" class="card" style="margin-top:12px">
+          <h3>Resumen de resultados</h3>
+          <p id="resumen-txt" class="muted">Completa ambos test para ver tu progreso.</p>
+          <table aria-label="Tabla de resultados">
+            <thead><tr><th>Medición</th><th>Puntaje (0–3)</th></tr></thead>
+            <tbody>
+              
+            <tr class="type1"><td><strong>Tipo 1</strong></td><td>El sistema inmunitario destruye las células del páncreas que producen insulina. Suele aparecer en la infancia o juventud y <em>siempre</em> requiere insulina. Los síntomas suelen iniciar de forma rápida.</td></tr>
+            <tr class="type2"><td><strong>Tipo 2</strong></td><td>El cuerpo no usa bien la insulina (resistencia) y con el tiempo produce menos. Es la forma más común en adultos y se relaciona con sedentarismo, alimentación y factores genéticos. Puede manejarse con cambios de estilo de vida, fármacos orales y, en algunos casos, insulina.</td></tr>
+            <tr class="typeG"><td><strong>Gestacional</strong></td><td>Aparece durante el embarazo por cambios hormonales que aumentan la resistencia a la insulina. Requiere control estricto para proteger a la madre y al bebé. Suele resolverse tras el parto, pero aumenta el riesgo futuro de diabetes tipo 2.</td></tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="card" aria-labelledby="t-contacto">
+      <h2 id="t-contacto">Contacto con profesional</h2>
+      <p>Envía una consulta breve y tu preferencia de contacto. <span class="muted">*Demostración sin backend*</span></p>
+      <form id="form-contacto" novalidate>
+        <div class="grid cols-2">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="field">
+            <label for="correo">Correo</label>
+            <input id="correo" type="email" name="correo" placeholder="tucorreo@ejemplo.com" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="mensaje">Consulta</label>
+          <textarea id="mensaje" rows="4" placeholder="Escribe tu consulta..." required></textarea>
+        </div>
+        <div class="field">
+          <label>
+            <input id="consent" type="checkbox" required />
+            Acepto el <a href="#" onclick="alert('Política de tratamiento de datos (demo).'); return false;">tratamiento de datos</a>.
+          </label>
+          <p class="hint">Tus datos no se envían a ningún servidor en este prototipo.</p>
+        </div>
+        <button class="btn primary" type="submit">Enviar (demo)</button>
+        <span id="contacto-msg" class="hint" aria-live="polite"></span>
+      </form>
+    </section>
+
+    <section class="footer" aria-label="Información técnica">
+      <h3>Información técnica del prototipo</h3>
+      <ul>
+        <li>Stack: HTML5, CSS3, JavaScript (sin dependencias).</li>
+        <li>Privacidad: almacenamiento local (<code class="inline">localStorage</code>) para test; sin backend.</li>
+        <li>Accesibilidad: navegación por teclado <span class="kbd">Tab</span>, roles ARIA en pestañas, alto contraste.</li>
+        <li>Despliegue sugerido: GitHub Pages / hosting con SSL.</li>
+      </ul>
+      <p>Repositorio sugerido: <code class="inline">/ProyectoDiabetes</code> con <code class="inline">README.md</code>, carpeta <code class="inline">/src</code> y evidencias.</p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // ====== Utilidades ======
+// Ejecutar inicialización tras DOM listo
+document.addEventListener('DOMContentLoaded', () => {
+    const qs = (s, el=document)=> el.querySelector(s);
+    const qsa = (s, el=document)=> [...el.querySelectorAll(s)];
+    const toast = (msg)=>{
+      const t = qs('#toast');
+      t.textContent = msg; t.style.display='block';
+      setTimeout(()=>{ t.style.display='none'; }, 2400);
+    };
+
+    // ====== Tabs Evaluación ======
+    const tabPre = qs('#tab-pre');
+    const tabPost = qs('#tab-post');
+    const panelPre = qs('#panel-pre');
+    const panelPost = qs('#panel-post');
+
+    function activateTab(which){
+      const isPre = which === 'pre';
+      tabPre.setAttribute('aria-selected', String(isPre));
+      tabPost.setAttribute('aria-selected', String(!isPre));
+      panelPre.hidden = !isPre;
+      panelPost.hidden = isPre;
+      (isPre ? tabPre : tabPost).focus();
+    }
+    tabPre.addEventListener('click', ()=> activateTab('pre'));
+    tabPost.addEventListener('click', ()=> activateTab('post'));
+    // teclado accesible
+    [tabPre, tabPost].forEach(btn=>{
+      btn.addEventListener('keydown', (e)=>{
+        if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+          activateTab(btn.id === 'tab-pre' ? 'post' : 'pre');
+          e.preventDefault();
+        }
+      });
+    });
+
+    // ====== Evaluación: almacenamiento local ======
+    const preKey = 'diab.pre';
+    const postKey = 'diab.post';
+
+    function scorePre(data){
+      const correct = {p1:'F', p2:'V', p3:'V', p4:'F', p5:'V'};
+      return Object.keys(correct).reduce((acc,k)=> acc + (data[k]===correct[k] ? 1:0), 0);
+    };
+      return ['p1','p2','p3'].reduce((acc,k)=> acc + (data[k]===correct[k] ? 1:0), 0);
+    }
+    function scorePost(data){
+      const correct = {q1:'V', q2:'V', q3:'F', q4:'V', q5:'V'};
+      return Object.keys(correct).reduce((acc,k)=> acc + (data[k]===correct[k] ? 1:0), 0);
+    };
+      return ['q1','q2','q3'].reduce((acc,k)=> acc + (data[k]===correct[k] ? 1:0), 0);
+    }
+
+    function loadForm(form, data){
+      Object.entries(data||{}).forEach(([k,v])=>{
+        const el = qs('#'+k, form);
+        if(el) el.value = v;
+      });
+    }
+
+    function renderScores(){
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      qs('#score-pre').textContent = pre ? scorePre(pre) : '—';
+      qs('#score-post').textContent = post ? scorePost(post) : '—';
+      if(pre && post){
+        const diff = scorePost(post) - scorePre(pre);
+        qs('#score-diff').textContent = (diff>0? '+' : '') + diff;
+        qs('#resumen-txt').innerHTML = diff >= 0
+          ? `¡Bien! Tu puntaje mejoró <strong>${diff}</strong> punto(s).`
+          : `Revisa nuevamente los contenidos. Tu puntaje bajó <strong>${diff}</strong> punto(s).`;
+      }
+    }
+
+    // Pre-cargar valores si existen
+    const savedPre = JSON.parse(localStorage.getItem(preKey) || 'null');
+    if(savedPre){ loadForm(qs('#form-pre'), savedPre); }
+    const savedPost = JSON.parse(localStorage.getItem(postKey) || 'null');
+    if(savedPost){ loadForm(qs('#form-post'), savedPost); }
+    renderScores();
+
+    // ====== Construcción de resultados detallados ======
+    const preSpec = [
+      {key:'p1', text:'La diabetes tipo 2 siempre requiere insulina desde el diagnóstico.', correct:'F'},
+      {key:'p2', text:'Elegir cereales integrales ayuda al control glucémico.', correct:'V'},
+      {key:'p3', text:'150 minutos/semana de actividad moderada es una meta razonable.', correct:'V'},
+      {key:'p4', text:'Saltarse comidas ayuda a controlar el azúcar.', correct:'F'},
+      {key:'p5', text:'Tomar agua y mantener peso saludable reduce el riesgo.', correct:'V'}
+    ];
+    const postSpec = [
+      {key:'q1', text:'Las bebidas azucaradas deben evitarse o limitarse.', correct:'V'},
+      {key:'q2', text:'Es recomendable revisar los pies diariamente.', correct:'V'},
+      {key:'q3', text:'Si olvidas una dosis, lo correcto es duplicar la siguiente.', correct:'F'},
+      {key:'q4', text:'Dormir bien y manejar el estrés ayuda al control glucémico.', correct:'V'},
+      {key:'q5', text:'Controlar la presión arterial es importante en personas con diabetes.', correct:'V'}
+    ];
+
+    function buildTable(spec, data, title){
+      const rows = spec.map((q, idx)=>{
+        const user = data ? (data[q.key] || '—') : '—';
+        const ok = user === q.correct;
+        return `<tr>
+          <td>${idx+1}</td>
+          <td>${q.text}</td>
+          <td>${user==='V'?'Verdadero':(user==='F'?'Falso':'—')}</td>
+          <td>${q.correct==='V'?'Verdadero':'Falso'}</td>
+          <td>${ ok ? '<span class="badge ok">✔</span>' : '<span class="badge error">✘</span>' }</td>
+        </tr>`;
+      }).join('');
+      const score = data ? spec.reduce((s,q)=> s + ((data[q.key]||'')===q.correct ? 1:0), 0) : 0;
+      return `<div class="card">
+        <h4 style="margin:0 0 8px">${title} — Puntaje: ${score} / ${spec.length}</h4>
+        <table>
+          <thead><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function updateResultsUI(){
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      const btnGeneral = qs('#btn-ver-resultados');
+      const btnPre = qs('#btn-ver-pre');
+      const btnPost = qs('#btn-ver-post');
+
+      // Botón general (comparativo) solo si hay Pre y Post
+      if (pre && post) { btnGeneral.hidden = false; } else { btnGeneral.hidden = true; }
+
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+
+      // Si existe Pre pero no Post, aseguramos que el panel de Post esté visible para contestarlo
+      if (pre && !post) {
+        panelPost.hidden = false;
+        tabPost.removeAttribute('disabled');
+      }
+    } else { btnGeneral.hidden = true; }
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+    } else {
+        btn.hidden = true;
+        qs('#resultados-detallados').hidden = true;
+      }
+    }
+
+    updateResultsUI();
+    // Reflejar estado guardado tras carga
+    updateResultsUI();
+
+    // Click handler para "Ver resultados"
+    qs('#btn-ver-resultados').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+
+    // Ver resultados del Pre-Test (individual)
+    qs('#btn-ver-pre').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      if(!pre) return;
+      qs('#tabla-pre-solo').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#resultados-pre').hidden = false; // estático, sin animaciones
+      toast('Resultados del Pre-Test listos');
+    });
+
+    // Ver resultados del Post-Test (individual)
+    qs('#btn-ver-post').addEventListener('click', ()=>{
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!post) return;
+      qs('#tabla-post-solo').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      qs('#resultados-post').hidden = false; // estático, sin animaciones
+      toast('Resultados del Post-Test listos');
+    });
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!(pre && post)) return;
+      qs('#tabla-pre').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#tabla-post').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      const mejora = scorePost(post) - scorePre(pre);
+      qs('#resumen-final').innerHTML = `<div class="card">
+        <h4 style="margin:0 0 6px">Resumen</h4>
+        <p class="muted">Puntaje Pre: <strong>${scorePre(pre)} / ${preSpec.length}</strong> | Puntaje Post: <strong>${scorePost(post)} / ${postSpec.length}</strong> | Mejora: <strong>${mejora >= 0 ? '+' : ''}${mejora}</strong></p>
+      </div>`;
+      qs('#resultados-detallados').hidden = false;
+      toast('Mostrando resultados');
+    });
+
+    // Manejo de formularios
+    qs('#form-pre').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = {
+        p1: qs('#p1').value,
+        p2: qs('#p2').value,
+        p3: qs('#p3').value,
+        p4: qs('#p4').value,
+        p5: qs('#p5').value
+      };
+      if(!data.p1 || !data.p2 || !data.p3 || !data.p4 || !data.p5){ qs('#pre-msg').textContent='Completa todas las respuestas.'; return; }
+      localStorage.setItem(preKey, JSON.stringify(data));
+      qs('#pre-msg').textContent = 'Pre-Test guardado. Puntaje: ' + scorePre(data) + ' / 3';
+      toast('Pre-Test guardado');
+      renderScores();
+
+    // ====== Construcción de resultados detallados ======
+    const preSpec = [
+      {key:'p1', text:'La diabetes tipo 2 siempre requiere insulina desde el diagnóstico.', correct:'F'},
+      {key:'p2', text:'Elegir cereales integrales ayuda al control glucémico.', correct:'V'},
+      {key:'p3', text:'150 minutos/semana de actividad moderada es una meta razonable.', correct:'V'},
+      {key:'p4', text:'Saltarse comidas ayuda a controlar el azúcar.', correct:'F'},
+      {key:'p5', text:'Tomar agua y mantener peso saludable reduce el riesgo.', correct:'V'}
+    ];
+    const postSpec = [
+      {key:'q1', text:'Las bebidas azucaradas deben evitarse o limitarse.', correct:'V'},
+      {key:'q2', text:'Es recomendable revisar los pies diariamente.', correct:'V'},
+      {key:'q3', text:'Si olvidas una dosis, lo correcto es duplicar la siguiente.', correct:'F'},
+      {key:'q4', text:'Dormir bien y manejar el estrés ayuda al control glucémico.', correct:'V'},
+      {key:'q5', text:'Controlar la presión arterial es importante en personas con diabetes.', correct:'V'}
+    ];
+
+    function buildTable(spec, data, title){
+      const rows = spec.map((q, idx)=>{
+        const user = data ? (data[q.key] || '—') : '—';
+        const ok = user === q.correct;
+        return `<tr>
+          <td>${idx+1}</td>
+          <td>${q.text}</td>
+          <td>${user==='V'?'Verdadero':(user==='F'?'Falso':'—')}</td>
+          <td>${q.correct==='V'?'Verdadero':'Falso'}</td>
+          <td>${ ok ? '<span class="badge ok">✔</span>' : '<span class="badge error">✘</span>' }</td>
+        </tr>`;
+      }).join('');
+      const score = data ? spec.reduce((s,q)=> s + ((data[q.key]||'')===q.correct ? 1:0), 0) : 0;
+      return `<div class="card">
+        <h4 style="margin:0 0 8px">${title} — Puntaje: ${score} / ${spec.length}</h4>
+        <table>
+          <thead><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function updateResultsUI(){
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      const btnGeneral = qs('#btn-ver-resultados');
+      const btnPre = qs('#btn-ver-pre');
+      const btnPost = qs('#btn-ver-post');
+
+      // Botón general (comparativo) solo si hay Pre y Post
+      if (pre && post) { btnGeneral.hidden = false; } else { btnGeneral.hidden = true; }
+
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+
+      // Si existe Pre pero no Post, aseguramos que el panel de Post esté visible para contestarlo
+      if (pre && !post) {
+        panelPost.hidden = false;
+        tabPost.removeAttribute('disabled');
+      }
+    } else { btnGeneral.hidden = true; }
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+    } else {
+        btn.hidden = true;
+        qs('#resultados-detallados').hidden = true;
+      }
+    }
+
+    updateResultsUI();
+    // Reflejar estado guardado tras carga
+    updateResultsUI();
+
+    // Click handler para "Ver resultados"
+    qs('#btn-ver-resultados').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+
+    // Ver resultados del Pre-Test (individual)
+    qs('#btn-ver-pre').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      if(!pre) return;
+      qs('#tabla-pre-solo').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#resultados-pre').hidden = false; // estático, sin animaciones
+      toast('Resultados del Pre-Test listos');
+    });
+
+    // Ver resultados del Post-Test (individual)
+    qs('#btn-ver-post').addEventListener('click', ()=>{
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!post) return;
+      qs('#tabla-post-solo').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      qs('#resultados-post').hidden = false; // estático, sin animaciones
+      toast('Resultados del Post-Test listos');
+    });
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!(pre && post)) return;
+      qs('#tabla-pre').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#tabla-post').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      const mejora = scorePost(post) - scorePre(pre);
+      qs('#resumen-final').innerHTML = `<div class="card">
+        <h4 style="margin:0 0 6px">Resumen</h4>
+        <p class="muted">Puntaje Pre: <strong>${scorePre(pre)} / ${preSpec.length}</strong> | Puntaje Post: <strong>${scorePost(post)} / ${postSpec.length}</strong> | Mejora: <strong>${mejora >= 0 ? '+' : ''}${mejora}</strong></p>
+      </div>`;
+      qs('#resultados-detallados').hidden = false;
+      toast('Mostrando resultados');
+    });
+      activateTab('post'); panelPost.hidden = false; tabPost.setAttribute('aria-selected','true');
+    });
+
+    qs('#form-post').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = {
+        q1: qs('#q1').value,
+        q2: qs('#q2').value,
+        q3: qs('#q3').value,
+        q4: qs('#q4').value,
+        q5: qs('#q5').value
+      };
+      if(!data.q1 || !data.q2 || !data.q3 || !data.q4 || !data.q5){ qs('#post-msg').textContent='Completa todas las respuestas.'; return; }
+      localStorage.setItem(postKey, JSON.stringify(data));
+      qs('#post-msg').textContent = 'Post-Test guardado. Puntaje: ' + scorePost(data) + ' / 3';
+      toast('Post-Test guardado');
+      renderScores();
+
+    // ====== Construcción de resultados detallados ======
+    const preSpec = [
+      {key:'p1', text:'La diabetes tipo 2 siempre requiere insulina desde el diagnóstico.', correct:'F'},
+      {key:'p2', text:'Elegir cereales integrales ayuda al control glucémico.', correct:'V'},
+      {key:'p3', text:'150 minutos/semana de actividad moderada es una meta razonable.', correct:'V'},
+      {key:'p4', text:'Saltarse comidas ayuda a controlar el azúcar.', correct:'F'},
+      {key:'p5', text:'Tomar agua y mantener peso saludable reduce el riesgo.', correct:'V'}
+    ];
+    const postSpec = [
+      {key:'q1', text:'Las bebidas azucaradas deben evitarse o limitarse.', correct:'V'},
+      {key:'q2', text:'Es recomendable revisar los pies diariamente.', correct:'V'},
+      {key:'q3', text:'Si olvidas una dosis, lo correcto es duplicar la siguiente.', correct:'F'},
+      {key:'q4', text:'Dormir bien y manejar el estrés ayuda al control glucémico.', correct:'V'},
+      {key:'q5', text:'Controlar la presión arterial es importante en personas con diabetes.', correct:'V'}
+    ];
+
+    function buildTable(spec, data, title){
+      const rows = spec.map((q, idx)=>{
+        const user = data ? (data[q.key] || '—') : '—';
+        const ok = user === q.correct;
+        return `<tr>
+          <td>${idx+1}</td>
+          <td>${q.text}</td>
+          <td>${user==='V'?'Verdadero':(user==='F'?'Falso':'—')}</td>
+          <td>${q.correct==='V'?'Verdadero':'Falso'}</td>
+          <td>${ ok ? '<span class="badge ok">✔</span>' : '<span class="badge error">✘</span>' }</td>
+        </tr>`;
+      }).join('');
+      const score = data ? spec.reduce((s,q)=> s + ((data[q.key]||'')===q.correct ? 1:0), 0) : 0;
+      return `<div class="card">
+        <h4 style="margin:0 0 8px">${title} — Puntaje: ${score} / ${spec.length}</h4>
+        <table>
+          <thead><tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th><th>Resultado</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+    }
+
+    function updateResultsUI(){
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      const btnGeneral = qs('#btn-ver-resultados');
+      const btnPre = qs('#btn-ver-pre');
+      const btnPost = qs('#btn-ver-post');
+
+      // Botón general (comparativo) solo si hay Pre y Post
+      if (pre && post) { btnGeneral.hidden = false; } else { btnGeneral.hidden = true; }
+
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+
+      // Si existe Pre pero no Post, aseguramos que el panel de Post esté visible para contestarlo
+      if (pre && !post) {
+        panelPost.hidden = false;
+        tabPost.removeAttribute('disabled');
+      }
+    } else { btnGeneral.hidden = true; }
+      // Botón individual del Pre si existe Pre
+      if (pre) { btnPre.hidden = false; } else { btnPre.hidden = true; qs('#resultados-pre').hidden = true; }
+      // Botón individual del Post si existe Post
+      if (post) { btnPost.hidden = false; } else { btnPost.hidden = true; qs('#resultados-post').hidden = true; }
+    } else {
+        btn.hidden = true;
+        qs('#resultados-detallados').hidden = true;
+      }
+    }
+
+    updateResultsUI();
+    // Reflejar estado guardado tras carga
+    updateResultsUI();
+
+    // Click handler para "Ver resultados"
+    qs('#btn-ver-resultados').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+
+    // Ver resultados del Pre-Test (individual)
+    qs('#btn-ver-pre').addEventListener('click', ()=>{
+      const pre = JSON.parse(localStorage.getItem(preKey) || 'null');
+      if(!pre) return;
+      qs('#tabla-pre-solo').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#resultados-pre').hidden = false; // estático, sin animaciones
+      toast('Resultados del Pre-Test listos');
+    });
+
+    // Ver resultados del Post-Test (individual)
+    qs('#btn-ver-post').addEventListener('click', ()=>{
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!post) return;
+      qs('#tabla-post-solo').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      qs('#resultados-post').hidden = false; // estático, sin animaciones
+      toast('Resultados del Post-Test listos');
+    });
+      const post = JSON.parse(localStorage.getItem(postKey) || 'null');
+      if(!(pre && post)) return;
+      qs('#tabla-pre').innerHTML = buildTable(preSpec, pre, 'Pre-Test');
+      qs('#tabla-post').innerHTML = buildTable(postSpec, post, 'Post-Test');
+      const mejora = scorePost(post) - scorePre(pre);
+      qs('#resumen-final').innerHTML = `<div class="card">
+        <h4 style="margin:0 0 6px">Resumen</h4>
+        <p class="muted">Puntaje Pre: <strong>${scorePre(pre)} / ${preSpec.length}</strong> | Puntaje Post: <strong>${scorePost(post)} / ${postSpec.length}</strong> | Mejora: <strong>${mejora >= 0 ? '+' : ''}${mejora}</strong></p>
+      </div>`;
+      qs('#resultados-detallados').hidden = false;
+      toast('Mostrando resultados');
+    });
+    });
+
+    // ====== Contacto (demo) ======
+    qs('#form-contacto').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const nombre = qs('#nombre').value.trim();
+      const correo = qs('#correo').value.trim();
+      const mensaje = qs('#mensaje').value.trim();
+      const consent = qs('#consent').checked;
+      if(!nombre || !correo || !mensaje || !consent){
+        qs('#contacto-msg').innerHTML = '<span class="error">Por favor completa todos los campos y acepta la política.</span>';
+        return;
+      }
+      // Demostración sin backend: simular envío
+      setTimeout(()=>{
+        qs('#contacto-msg').innerHTML = '<span class="ok">¡Mensaje enviado (demo)! Revisa tu correo para confirmación.</span>';
+        (qs('#form-contacto')).reset();
+      }, 500);
+    });
+
+    // ====== Métricas básicas (demo) ======
+    (function metrics(){
+      const key = 'diab.metrics';
+      const m = JSON.parse(localStorage.getItem(key) || '{"visitas":0,"ultimo":null}');
+      m.visitas += 1; m.ultimo = new Date().toISOString();
+      localStorage.setItem(key, JSON.stringify(m));
+      console.log('Métricas (local):', m);
+    })();
+  
+  // Fin DOMContentLoaded init
+});
+</script>
+</body>
+</html>
